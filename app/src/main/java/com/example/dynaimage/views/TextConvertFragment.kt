@@ -22,7 +22,7 @@ import java.io.InputStreamReader
 
 class TextConvertFragment : Fragment() {
 
-    lateinit var contentResolver: ContentResolver
+    private lateinit var contentResolver: ContentResolver
     private lateinit var binding: FragmentTextConvertBinding
     // Request code for selecting a PDF document.
     val PICK_FILE = 1
