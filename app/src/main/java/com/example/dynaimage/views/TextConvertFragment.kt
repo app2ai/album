@@ -66,6 +66,9 @@ class TextConvertFragment : Fragment() {
         binding.btnTelugu.setOnClickListener {
             checkWordAsPerLanguage("telugu")
         }
+        binding.btnNext.setOnClickListener {
+
+        }
     }
 
     private fun checkWordAsPerLanguage(lang: String) {
