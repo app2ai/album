@@ -2,10 +2,29 @@ package com.example.dynaimage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
+import com.example.dynaimage.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // used nav controller for fragment navigation
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val myNavController = navHostFragment.navController
+
+        myNavController.addOnDestinationChangedListener { cntr, dest, args ->
+            when (dest.id) {
+                R.id.convertFragment -> {
+                    myNavController.popBackStack(R.id.convertFragment, true)
+                }
+            }
+        }
     }
 }

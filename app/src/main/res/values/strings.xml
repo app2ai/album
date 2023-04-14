@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">DynaImage</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="str_hello_world">Hello World</string>
+    <string name="convert_to_hindi">Convert to Hindi</string>
+    <string name="convert_to_english">Convert to English</string>
+    <string name="convert_to_marathi">Convert to Marathi</string>
+    <string name="convert_to_punjabi">Convert to Punjabi</string>
+    <string name="convert_to_telugu">Convert to Telugu</string>
+    <string name="next">Next Page</string>
 </resources>
