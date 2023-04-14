@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 object RetrofitClient {
     const val myDomain = "https://jsonplaceholder.typicode.com"
-    val sportService: AlbumApiService
+    val apiService: AlbumApiService
         get(){
             return Retrofit.Builder()
                 .baseUrl(myDomain)

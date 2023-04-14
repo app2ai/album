@@ -11,10 +11,6 @@ import com.example.dynaimage.viewmodel.AlbumListViewModel
 
 class AlbumListFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AlbumListFragment()
-    }
-
     private lateinit var viewModel: AlbumListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +21,5 @@ class AlbumListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(AlbumListViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 }
