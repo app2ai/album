@@ -15,16 +15,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // used nav controller for fragment navigation
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val myNavController = navHostFragment.navController
+        // val navHostFragment =
+        //     supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        // val myNavController = navHostFragment.navController
 
-        myNavController.addOnDestinationChangedListener { cntr, dest, args ->
-            when (dest.id) {
-                R.id.convertFragment -> {
-                    myNavController.popBackStack(R.id.convertFragment, true)
-                }
-            }
-        }
+        // myNavController.addOnDestinationChangedListener { cntr, dest, args ->
+        //     when (dest.id) {
+        //         R.id.convertFragment -> {
+        //             myNavController.popBackStack(R.id.convertFragment, true)
+        //         }
+        //     }
+        // }
     }
 }

@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.dynaimage.R
 import com.example.dynaimage.databinding.FragmentTextConvertBinding
 import com.example.dynaimage.model.JsonTextData
@@ -67,7 +68,7 @@ class TextConvertFragment : Fragment() {
             checkWordAsPerLanguage("telugu")
         }
         binding.btnNext.setOnClickListener {
-
+            findNavController().navigate(R.id.albumListFragment)
         }
     }
 

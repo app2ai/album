@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 class AlbumRepository @Inject constructor(
     private val service: AlbumApiService,
-    private val carDao: AlbumDbDao
+    private val dao: AlbumDbDao
 ) {
-    suspend fun downloadListOfCar(): AlbumAPIResponse {
+    suspend fun downloadListOfPhoto(): AlbumAPIResponse {
         return try {
             val call = service.albumApi()
             if (call.isSuccessful) {
@@ -23,19 +23,23 @@ class AlbumRepository @Inject constructor(
         }
     }
 
-    suspend fun getAllCars(): List<AlbumModelItem> {
-        return carDao.getAllCars() ?: listOf()
+    suspend fun getAllPhotos(): List<AlbumModelItem> {
+        return dao.getTenPhotoAlbumAtOnce() ?: listOf()
     }
 
-    suspend fun saveCarsInDb(cars: List<AlbumModelItem>) {
-        for (car in cars) {
-            carDao.addCar(car)
+    suspend fun savePhotosInDb(photoAlbums: List<AlbumModelItem>) {
+        for (photoAlbum in photoAlbums) {
+            dao.addPhoto(photoAlbum)
         }
+    }
+
+    suspend fun getRecordsCount() : Int {
+        return dao.totalRecords()
     }
 }
 
 // API Response sealed status
 sealed class AlbumAPIResponse
-data class ApiSuccess(val cars: List<AlbumModelItem>?) : AlbumAPIResponse()
+data class ApiSuccess(val albums: List<AlbumModelItem>?) : AlbumAPIResponse()
 object ApiFailed : AlbumAPIResponse()
 object SocketTimeout : AlbumAPIResponse()

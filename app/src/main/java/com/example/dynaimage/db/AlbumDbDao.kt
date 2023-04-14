@@ -9,8 +9,11 @@ import com.example.dynaimage.model.AlbumModelItem
 @Dao
 interface AlbumDbDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addCar(user: AlbumModelItem): Long
+    suspend fun addPhoto(user: AlbumModelItem): Long
 
     @Query("Select * from tblAlbum")
-    suspend fun getAllCars(): List<AlbumModelItem>?
+    suspend fun getTenPhotoAlbumAtOnce(): List<AlbumModelItem>?
+
+    @Query("Select COUNT(id) From tblAlbum")
+    suspend fun totalRecords(): Int
 }

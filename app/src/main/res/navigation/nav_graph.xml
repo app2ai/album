@@ -9,5 +9,19 @@
         android:id="@+id/convertFragment"
         android:name="com.example.dynaimage.views.TextConvertFragment"
         tools:layout="@layout/fragment_text_convert" >
+        <action
+            android:id="@+id/action_convertFragment_to_albumListFragment"
+            app:destination="@id/albumListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/albumListFragment"
+        android:name="com.example.dynaimage.views.AlbumListFragment"
+        android:label="fragment_album_list"
+        tools:layout="@layout/fragment_album_list" />
+    <fragment
+        android:id="@+id/detailedFragment"
+        android:name="com.example.dynaimage.views.DetailedFragment"
+        android:label="fragment_detailed"
+        tools:layout="@layout/fragment_detailed" />
+
 </navigation>
