@@ -11,12 +11,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.dynaimage.R
 import com.example.dynaimage.databinding.FragmentTextConvertBinding
 import com.example.dynaimage.model.JsonTextData
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import org.intellij.lang.annotations.Language
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -84,9 +83,16 @@ class TextConvertFragment : Fragment() {
             // the user selected.
             binding.txtFileName.text = resultData?.data?.path
             resultData?.data?.also { uri ->
-                val plainText = readTextFromUri(uri)
-                val jsonString = Gson().toJson(plainText)
-                fileDataObj = GsonBuilder().create().fromJson(plainText, Array<JsonTextData>::class.java).toList()
+                try {
+                    val plainText = readTextFromUri(uri)
+                    fileDataObj = GsonBuilder().create().fromJson(plainText, Array<JsonTextData>::class.java).toList()
+                } catch (ex: Exception) {
+                    Log.d("TAG", "onActivityResult: ${ex.message}")
+                } finally {
+                    if (fileDataObj.isNullOrEmpty()) {
+                        Toast.makeText(requireContext(), "Please select appropriate json file", Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         }
     }
