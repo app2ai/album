@@ -17,6 +17,7 @@
         android:gravity="center"
         android:padding="8dp"
         android:textSize="16sp"
+        android:layout_marginTop="16dp"
         />
 
     <LinearLayout
@@ -31,25 +32,54 @@
         android:gravity="center_horizontal"
         >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/txtFileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_file_selected"
+                android:layout_marginEnd="8dp"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                />
+            <Button
+                android:id="@+id/btnUploadFile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upload_file"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
         <Button
             android:id="@+id/btnHindi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/convert_to_hindi"
+            android:layout_marginTop="16dp"
             />
 
         <Button
-            android:id="@+id/btnEnglish"
+            android:id="@+id/btnSpainish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/convert_to_english"
+            android:text="@string/convert_to_sp"
             />
 
         <Button
-            android:id="@+id/btnMarathi"
+            android:id="@+id/btnRussian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/convert_to_marathi"
+            android:text="@string/convert_to_rus"
             />
 
         <Button
@@ -60,10 +90,10 @@
             />
 
         <Button
-            android:id="@+id/btnPunjabi"
+            android:id="@+id/btnIrish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/convert_to_punjabi"
+            android:text="@string/convert_to_isis"
             />
 
     </LinearLayout>

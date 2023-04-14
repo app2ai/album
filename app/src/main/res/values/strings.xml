@@ -4,9 +4,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="str_hello_world">Hello World</string>
     <string name="convert_to_hindi">Convert to Hindi</string>
-    <string name="convert_to_english">Convert to English</string>
-    <string name="convert_to_marathi">Convert to Marathi</string>
-    <string name="convert_to_punjabi">Convert to Punjabi</string>
+    <string name="convert_to_sp">Convert to Spanish</string>
+    <string name="convert_to_rus">Convert to Russian</string>
+    <string name="convert_to_isis">Convert to Irish</string>
     <string name="convert_to_telugu">Convert to Telugu</string>
+    <string name="upload_file">Upload File</string>
     <string name="next">Next Page</string>
+    <string name="no_file_selected">No file selected</string>
 </resources>
