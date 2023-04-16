@@ -4,41 +4,34 @@ import android.app.Activity
 import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.DocumentsContract
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
+import com.example.dynaimage.MainActivity
 import com.example.dynaimage.R
-import com.example.dynaimage.databinding.FragmentTextConvertBinding
+import com.example.dynaimage.databinding.ActivityTextConvertBinding
 import com.example.dynaimage.model.JsonTextData
 import com.google.gson.GsonBuilder
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 
-class TextConvertFragment : Fragment() {
+class TextConvertActivity : AppCompatActivity() {
 
-    private lateinit var contentResolver: ContentResolver
-    private lateinit var binding: FragmentTextConvertBinding
+    private lateinit var actContentResolver: ContentResolver
+    private lateinit var binding: ActivityTextConvertBinding
     // Request code for selecting a PDF document.
     val PICK_FILE = 1
     var fileDataObj : List<JsonTextData>? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
-        binding = FragmentTextConvertBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityTextConvertBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        contentResolver = context?.contentResolver.let { it!! }
+        actContentResolver = contentResolver
 
         binding.btnUploadFile.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
@@ -68,7 +61,8 @@ class TextConvertFragment : Fragment() {
             checkWordAsPerLanguage("telugu")
         }
         binding.btnNext.setOnClickListener {
-            findNavController().navigate(R.id.albumListFragment)
+            val i = Intent(this, MainActivity::class.java)
+            startActivity(i)
         }
     }
 
@@ -81,11 +75,13 @@ class TextConvertFragment : Fragment() {
 
     override fun onActivityResult(
         requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
         if (requestCode == PICK_FILE
             && resultCode == Activity.RESULT_OK) {
             // The result data contains a URI for the document or directory that
             // the user selected.
             binding.txtFileName.text = resultData?.data?.path
+            fileDataObj = null
             resultData?.data?.also { uri ->
                 try {
                     val plainText = readTextFromUri(uri)
@@ -94,7 +90,7 @@ class TextConvertFragment : Fragment() {
                     Log.d("TAG", "onActivityResult: ${ex.message}")
                 } finally {
                     if (fileDataObj.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), "Please select appropriate json file", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Please select appropriate json file", Toast.LENGTH_LONG).show()
                     }
                 }
             }
@@ -104,7 +100,7 @@ class TextConvertFragment : Fragment() {
     @Throws(IOException::class)
     private fun readTextFromUri(uri: Uri): String {
         val stringBuilder = StringBuilder()
-        contentResolver.openInputStream(uri)?.use { inputStream ->
+        actContentResolver.openInputStream(uri)?.use { inputStream ->
             BufferedReader(InputStreamReader(inputStream)).use { reader ->
                 var line: String? = reader.readLine()
                 while (line != null) {

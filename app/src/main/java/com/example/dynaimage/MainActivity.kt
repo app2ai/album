@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
 import com.example.dynaimage.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,15 +19,15 @@ class MainActivity : AppCompatActivity() {
         if (!isTablet()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         }
-        // used nav controller for fragment navigation
+        //used nav controller for fragment navigation
         // val navHostFragment =
         //     supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         // val myNavController = navHostFragment.navController
-
+        //
         // myNavController.addOnDestinationChangedListener { cntr, dest, args ->
         //     when (dest.id) {
-        //         R.id.convertFragment -> {
-        //             myNavController.popBackStack(R.id.convertFragment, true)
+        //         R.id.albumListFragment -> {
+        //             myNavController.popBackStack(R.id.albumListFragment, true)
         //         }
         //     }
         // }

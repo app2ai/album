@@ -7,7 +7,7 @@
     android:layout_height="match_parent" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="match_parent"
         android:background="@color/white"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -38,4 +38,12 @@
             android:padding="4dp"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/detailContainer"
+        android:layout_width="300dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:name="com.example.dynaimage.views.DetailedFragment" />
 </androidx.slidingpanelayout.widget.SlidingPaneLayout>

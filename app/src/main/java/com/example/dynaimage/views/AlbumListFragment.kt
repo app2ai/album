@@ -9,6 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +19,7 @@ import com.example.dynaimage.AlbumApplication
 import com.example.dynaimage.R
 import com.example.dynaimage.databinding.FragmentAlbumListBinding
 import com.example.dynaimage.model.AlbumModelItem
+import com.example.dynaimage.utils.TwoPaneOnBackPressedCallback
 import com.example.dynaimage.viewmodel.AlbumListViewModel
 import com.example.dynaimage.views.AlbumAdapter.Companion.albums
 import java.util.ArrayList
@@ -51,6 +55,10 @@ class AlbumListFragment : Fragment(), AlbumAdapter.RecordSelectListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Connect the SlidingPaneLayout to the system back button.
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            TwoPaneOnBackPressedCallback(binding.twoPaneLayout)
+        )
         observeData()
     }
 
@@ -108,5 +116,17 @@ class AlbumListFragment : Fragment(), AlbumAdapter.RecordSelectListener {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList("ALBUMS", albums as ArrayList<AlbumModelItem>)
+    }
+
+    // A method on the Fragment that owns the SlidingPaneLayout,
+    // called by the adapter when an item is selected.
+    fun openDetails(albumModel: AlbumModelItem) {
+        findNavController().navigate(
+            // Assume the itemId is the android:id of a destination in
+            // the graph.
+            R.id.detailedFragment,
+            bundleOf("ID" to albumModel.id, "TITLE" to albumModel.title, "URL" to albumModel.url)
+        )
+        binding.twoPaneLayout.open()
     }
 }
