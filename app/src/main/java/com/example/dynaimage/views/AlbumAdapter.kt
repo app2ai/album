@@ -1,6 +1,5 @@
 package com.example.dynaimage.views
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,11 +9,13 @@ import com.example.dynaimage.model.AlbumModelItem
 import com.squareup.picasso.Picasso
 
 class AlbumAdapter(
-    private val albums: List<AlbumModelItem>,
     private var listener: RecordSelectListener
 ) : RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>(){
 
     var recordSelectListener: RecordSelectListener = listener
+    companion object {
+        var albums: MutableList<AlbumModelItem> = mutableListOf()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val v = AlbumCardBinding.inflate(
@@ -27,10 +28,21 @@ class AlbumAdapter(
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         holder.bindItem(albums[position])
+        if (position == albums.size - 1) {
+            listener.loadMoreDataToRecyclerView(position+1)
+        }
     }
 
     override fun getItemCount(): Int {
         return albums.size
+    }
+
+    fun appendList(lst: List<AlbumModelItem>?) {
+        if (lst.isNullOrEmpty()) {
+            return
+        } else {
+            albums.addAll(lst)
+        }
     }
 
     inner class AlbumViewHolder(private val itemBinding: AlbumCardBinding): RecyclerView.ViewHolder(itemBinding.root) {
@@ -50,5 +62,6 @@ class AlbumAdapter(
 
     interface RecordSelectListener {
         fun onRecordSelect(albumModel: AlbumModelItem)
+        fun loadMoreDataToRecyclerView(indexPosition: Int)
     }
 }

@@ -1,5 +1,8 @@
 package com.example.dynaimage.repo
 
+import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.dynaimage.db.AlbumDbDao
 import com.example.dynaimage.model.AlbumModelItem
 import com.example.dynaimage.service.AlbumApiService
@@ -23,8 +26,13 @@ class AlbumRepository @Inject constructor(
         }
     }
 
-    suspend fun getAllPhotos(): List<AlbumModelItem> {
-        return dao.getTenPhotoAlbumAtOnce() ?: listOf()
+    suspend fun getAllPagedPhotos(config: PagedList.Config): LiveData<PagedList<AlbumModelItem>> {
+        val factory = dao.getTenPhotoAlbumAtOnce()
+        return LivePagedListBuilder(factory, config).build()
+    }
+
+    suspend fun getTenAlbumLegacyWay(index: Int) : List<AlbumModelItem>?{
+        return dao.getAlbumInLegacyWay(index)
     }
 
     suspend fun savePhotosInDb(photoAlbums: List<AlbumModelItem>) {

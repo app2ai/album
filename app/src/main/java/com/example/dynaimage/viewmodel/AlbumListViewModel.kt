@@ -4,19 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagedList
 import com.example.dynaimage.model.AlbumModelItem
 import com.example.dynaimage.repo.AlbumRepository
 import com.example.dynaimage.repo.ApiFailed
 import com.example.dynaimage.repo.ApiSuccess
 import com.example.dynaimage.repo.SocketTimeout
+import com.example.dynaimage.utils.SingleLiveDataEvent
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AlbumListViewModel @Inject constructor(
     private var repo: AlbumRepository
 ): ViewModel() {
-    private var _albumLiveData = MutableLiveData<List<AlbumModelItem>>()
-    val albumLiveData: LiveData<List<AlbumModelItem>> = _albumLiveData
+
+    private var _albumLiveData = SingleLiveDataEvent<List<AlbumModelItem>>()
+    val albumLiveData: SingleLiveDataEvent<List<AlbumModelItem>> = _albumLiveData
 
     private var _progressLiveData = MutableLiveData<Boolean>()
     val progressLiveData: LiveData<Boolean> = _progressLiveData
@@ -52,9 +56,11 @@ class AlbumListViewModel @Inject constructor(
     }
 
     // get 10 pages at once
-    fun catchCarsPageWise() {
+    fun catchPhotosPageWise(index: Int) {
         viewModelScope.launch {
-            _albumLiveData.value = repo.getAllPhotos()
+            _progressLiveData.value = true
+            delay(750L)
+            _albumLiveData.value = repo.getTenAlbumLegacyWay(index)
             _progressLiveData.value = false
         }
     }

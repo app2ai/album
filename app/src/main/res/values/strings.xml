@@ -11,4 +11,5 @@
     <string name="upload_file">Upload File</string>
     <string name="next">Next Page</string>
     <string name="no_file_selected">No file selected</string>
+    <string name="loading_records">Please wait, records loading …</string>
 </resources>

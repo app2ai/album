@@ -18,15 +18,18 @@
         app:layout_constraintBottom_toTopOf="@id/progressBar"
         />
 
-    <ProgressBar
+    <TextView
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/loading_records"
+        android:gravity="center"
+        android:background="@color/grey_bg"
+        android:padding="4dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
