@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/twoPaneLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    tools:context=".views.AlbumListFragment"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="280dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:background="@color/white"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".views.AlbumListFragment">
+        >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -39,11 +41,29 @@
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/detailContainer"
+    <LinearLayout
         android:layout_width="300dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:name="com.example.dynaimage.views.DetailedFragment" />
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/imgThumbBig"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/textATitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_margin="16dp"
+            />
+    </LinearLayout>
 </androidx.slidingpanelayout.widget.SlidingPaneLayout>

@@ -1,19 +1,15 @@
 package com.example.dynaimage.views
 
 import android.content.Context
+import android.content.res.Configuration
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dynaimage.AlbumApplication
 import com.example.dynaimage.R
@@ -22,6 +18,7 @@ import com.example.dynaimage.model.AlbumModelItem
 import com.example.dynaimage.utils.TwoPaneOnBackPressedCallback
 import com.example.dynaimage.viewmodel.AlbumListViewModel
 import com.example.dynaimage.views.AlbumAdapter.Companion.albums
+import com.squareup.picasso.Picasso
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -97,10 +94,19 @@ class AlbumListFragment : Fragment(), AlbumAdapter.RecordSelectListener {
     }
 
     override fun onRecordSelect(albumModel: AlbumModelItem) {
-        findNavController().navigate(
-            R.id.detailedFragment,
-            bundleOf("ID" to albumModel.id, "TITLE" to albumModel.title, "URL" to albumModel.url)
-        )
+        if (isLandScapeView()) {
+            binding.textATitle?.text = albumModel.title
+            Picasso.get()
+                .load(albumModel.url)
+                .fit()
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(binding.imgThumbBig)
+        } else {
+            findNavController().navigate(
+                R.id.detailedFragment,
+                bundleOf("ID" to albumModel.id, "TITLE" to albumModel.title, "URL" to albumModel.url, "ISPORT" to true)
+            )
+        }
     }
 
     override fun loadMoreDataToRecyclerView(indexPosition: Int) {
@@ -118,15 +124,7 @@ class AlbumListFragment : Fragment(), AlbumAdapter.RecordSelectListener {
         outState.putParcelableArrayList("ALBUMS", albums as ArrayList<AlbumModelItem>)
     }
 
-    // A method on the Fragment that owns the SlidingPaneLayout,
-    // called by the adapter when an item is selected.
-    fun openDetails(albumModel: AlbumModelItem) {
-        findNavController().navigate(
-            // Assume the itemId is the android:id of a destination in
-            // the graph.
-            R.id.detailedFragment,
-            bundleOf("ID" to albumModel.id, "TITLE" to albumModel.title, "URL" to albumModel.url)
-        )
-        binding.twoPaneLayout.open()
+    private fun isLandScapeView() : Boolean {
+        return resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     }
 }

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagedList
 import com.example.dynaimage.model.AlbumModelItem
 import com.example.dynaimage.repo.AlbumRepository
 import com.example.dynaimage.repo.ApiFailed
