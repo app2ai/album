@@ -23,7 +23,7 @@ class DetailedFragment : Fragment() {
 
         val id = arguments?.getInt("ID") ?: 0
         val title = arguments?.getString("TITLE") ?: ""
-        val url = arguments?.getString("URL") ?: "https://via.placeholder.com/600/b7b126"
+        val url = arguments?.getString("URL") ?: ""
 
         binding.txtDAlbumTitle.text = "$id. $title"
         Picasso.get()
